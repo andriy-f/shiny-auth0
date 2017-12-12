@@ -23,22 +23,12 @@ var setIfExists = function(proxyReq, header, value){
 }
 
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
-
-if(!req.user) return false;
   setIfExists(proxyReq, 'x-auth0-nickname', req.user._json.nickname);
   setIfExists(proxyReq, 'x-auth0-user_id', req.user._json.user_id);
   setIfExists(proxyReq, 'x-auth0-email', req.user._json.email);
   setIfExists(proxyReq, 'x-auth0-name', req.user._json.name);
   setIfExists(proxyReq, 'x-auth0-picture', req.user._json.picture);
   setIfExists(proxyReq, 'x-auth0-locale', req.user._json.locale);
-});
-
-router.get('/invitation', function (req, res) {
-  proxy.web(req, res);
-});
-
-router.get(/.*(js|css|png|jpg|gif)$/, function (req, res) {
-  proxy.web(req, res);
 });
 
 /* Proxy all requests */
