@@ -33,17 +33,9 @@ if(!req.user) return false;
   setIfExists(proxyReq, 'x-auth0-locale', req.user._json.locale);
 });
 
-router.get('/invitation', function (req, res) {
-  proxy.web(req, res);
-});
-
-router.get(/.*(js|css|png|jpg|gif)$/, function (req, res) {
-  proxy.web(req, res);
-});
 
 /* Proxy all requests */
-router.all(/.*/, ensureLoggedIn, function(req, res, next) {
-  res.cookie('uid', req.user._json.user_id);
+router.all(/.*/, function(req, res, next) {
   proxy.web(req, res);
 });
 

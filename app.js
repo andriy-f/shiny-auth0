@@ -13,7 +13,7 @@ dotenv.load();
 
 var routes = require('./routes/index');
 var reports = require('./routes/reports');
-
+var invitation =  require('./routes/invitation.js');
 // This will configure Passport to use Auth0
 var strategy = new Auth0Strategy({
     domain:       process.env.AUTH0_DOMAIN,
@@ -55,6 +55,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//app.use('/invitation', invitation);
 app.use('/reports/', reports);
 app.use('/', routes);
 

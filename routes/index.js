@@ -20,8 +20,11 @@ router.get('/login',
     res.render('login', { env: env });
   });
 
+  
+
 router.get('/logout', function(req, res){
   req.logout();
+  res.cookie('uid', '', { expires: new Date() });
   res.redirect('/login');
 });
 
@@ -30,6 +33,5 @@ router.get('/callback',
   function(req, res) {
     res.redirect(req.session.returnTo || '/reports/');
   });
-
-
+  
 module.exports = router;
